@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
 import utility.app1.skillgems_data_handler as dh
+import utility.app1.gem_margins as gm
 import widgets.initializer as initializer
 from utility.plot_utility import df_get_max_col
+from datetime import datetime, timedelta
 
 TITLE = "Skill Gem Leveling Helper"
 VERSION = "v1.2.2"
@@ -375,6 +377,11 @@ def session_state_variables(df):
 
 @st.cache_data
 def load_data():
+    last_update = datetime.strptime(dh.last_update(),"%d.%m.%Y, %H:%M")
+    # Auto update .strftime("%d.%m.%Y, %H:%M")
+    if last_update < datetime.now() + timedelta(hours=6):
+        dh.load_all_categories()
+        gm.create_json_data()
     dict_gem = dh.load_json()
     df_raw = pd.DataFrame.from_dict(dict_gem, orient="index")
     return df_raw

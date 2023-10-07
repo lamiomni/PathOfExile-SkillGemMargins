@@ -378,7 +378,7 @@ def session_state_variables(df):
 @st.cache_data
 def load_data():
     last_update = datetime.strptime(dh.last_update(),"%d.%m.%Y, %H:%M")
-    # Auto update .strftime("%d.%m.%Y, %H:%M")
+    # Auto update
     if last_update < datetime.now() + timedelta(hours=6):
         dh.load_all_categories()
         gm.create_json_data()

@@ -6,7 +6,7 @@ name: update_sextant_data
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   schedule:
-    - cron: '00 01,13 * * *' # regular job (1pm & 1am): '00 01,13 * * *' // every 15 minutes: */15 * * * *
+    - cron: '0 */6 * * *' # every 6 hours
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -40,8 +40,8 @@ jobs:
               
           - name: Commit and Push Changes
             run: |
-              git config user.name "grummble-ai"
-              git config user.email "73717764+grummble-ai@users.noreply.github.com"
+              git config user.name "lamiomni"
+              git config user.email "7116358+lamiomni@users.noreply.github.com"
               git add -u
               git commit -m "Updated sextant data with GitHub Actions" || echo "Commit didn't work"
               git push origin main || echo "Pushing didn't work"
